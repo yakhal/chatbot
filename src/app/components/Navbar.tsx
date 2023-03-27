@@ -39,10 +39,10 @@ export default function Navbar() {
       <nav className={`${isOpen || 'hidden'} w-full md:flex md:items-center md:w-auto`}>
         <ul className='text-base text-gray-700 pt-4 md:flex md:justify-between md:pt-0 space-y-2 md:space-y-0'>
           {linkData.map((link) => (
-            <li key={link.name}>
+            <li key={link.name} className='rounded-sm'>
               <Link
                 onClick={setIsOpen}
-                className={`md:p-3 py-2 block text-sm ${activeSegment === link.targetSegment ? activelinkStyle : ''}`}
+                className={`md:p-3 p-2 block text-sm hover:text-emerald-600 ${activeSegment === link.targetSegment ? activelinkStyle : ''}`}
                 href={link.path}
               >
                 {link.name}

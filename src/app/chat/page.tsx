@@ -1,5 +1,8 @@
-export default function Chat() {
+import ConversationsList from "./components/ConversationsList";
+
+export default function ChatPage() {
+
   return (
-    <div>Chat Window</div>
+      <ConversationsList />
   );
 }
