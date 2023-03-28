@@ -4,9 +4,10 @@ import Image from 'next/image'
 import EmojiIcon from "public/emoji_icon.svg";
 import AttachmentIcon from "public/attachment_icon.svg";
 import SendIcon from "public/send_icon.svg";
-import { getAIResponse, STYLE_AIMSG, STYLE_USERMSG } from '../constants';
+import { STYLE_AIMSG, STYLE_USERMSG } from '../constants';
 import { useChannel } from './ablyReactEffect';
 import { MessageDataType } from './models';
+import { generateResponse } from '@/util/AIChatBot';
 
 export default function ChatWindow() {
   // Ref Variables to manipulate the DOM
@@ -33,9 +34,14 @@ export default function ChatWindow() {
   const handleFormSubmission = async (event: any) => {
     event.preventDefault();
     if (userMessageIsEmpty) return;
-    sendChatMessage({message: userMessage, agent: 'USER', avatar: ''});
-    const aiResponse: any = await getAIResponse();
-    sendChatMessage({message: aiResponse, agent: 'AI', avatar: ''})
+    const message = userMessage
+    sendChatMessage({ message, agent: 'USER', avatar: '' });
+    try {
+      const aiResponse: any = await generateResponse(message);
+      sendChatMessage({ message: aiResponse, agent: 'AI', avatar: '' });
+    } catch (error: any) {
+      console.log(error);
+    }
   }
 
   React.useEffect(() => {
